@@ -1,13 +1,13 @@
-// This SQL script is performing various analyses on the `online_retail_data` table within the `sales`
-// database. Here is a breakdown of each section:
+-- This SQL script is performing various analyses on the `online_retail_data` table within the `sales`
+-- database. Here is a breakdown of each section:
 
 create database sales;
 use sales;
 
 -- 1. Calculate the total sales volume (excluding returns) and the average order value
 SELECT
-    SUM(Quantity * UnitPrice) AS TotalSalesRevenue,
-    AVG(Quantity * UnitPrice) AS AverageOrderValue
+    ROUND(SUM(Quantity * UnitPrice), 2) AS TotalSalesRevenue,
+    ROUND(AVG(Quantity * UnitPrice), 2) AS AverageOrderValue
 FROM
     online_retail_data
 WHERE
@@ -16,7 +16,7 @@ WHERE
 -- 2. To identify the country/region with the highest sales volume (excluding returns)
 SELECT
     Country,
-    SUM(Quantity * UnitPrice) AS TotalRevenueByCountry
+    ROUND(SUM(Quantity * UnitPrice), 2) AS TotalRevenueByCountry
 FROM
     online_retail_data
 WHERE
@@ -30,7 +30,7 @@ LIMIT 5; -- Show the top 5 countries with the highest sales
 -- 3. Calculate daily sales and sort by date
 SELECT
     DATE(InvoiceDate) AS SaleDate, -- Extraction date section
-    SUM(Quantity * UnitPrice) AS DailySales
+    ROUND(SUM(Quantity * UnitPrice),2) AS DailySales
 FROM
     online_retail_data
 WHERE
@@ -47,7 +47,7 @@ SELECT
         ELSE 'Registered Customer'
     END AS CustomerType,
     COUNT(DISTINCT InvoiceNo) AS TotalOrders, -- Count the number of orders
-    SUM(Quantity * UnitPrice) AS TotalRevenue
+    ROUND(SUM(Quantity * UnitPrice),2) AS TotalRevenue
 FROM
     online_retail_data
 WHERE
@@ -68,4 +68,3 @@ GROUP BY
 ORDER BY
     TotalItemsPurchased DESC
 LIMIT 3;
-
