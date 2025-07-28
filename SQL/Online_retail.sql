@@ -1,4 +1,4 @@
--- This SQL script is performing various analyses on the `online_retail_data` table within the `sales`
+-- This SQL script is performing various analyses on the `Online Retail` table within the `sales`
 -- database. Here is a breakdown of each section:
 
 create database sales;
